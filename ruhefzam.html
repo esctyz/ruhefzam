@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yâr ile vuslat mümkün müdür yine?</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Georgia', serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1 {
+      margin-top: 80px;
+      color: #8b0000;
+      font-size: 32px;
+    }
+    #buttons {
+      margin-top: 40px;
+      position: relative;
+      height: 60px;
+    }
+    button {
+      padding: 15px 35px;
+      font-size: 18px;
+      margin: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+    #yes {
+      background-color: #28a745;
+      color: white;
+      position: relative;
+      z-index: 10;
+    }
+    #no {
+      background-color: #dc3545;
+      color: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 1000;
+      transition: left 0.3s ease, top 0.3s ease;
+    }
+    #message {
+      max-width: 600px;
+      margin: 40px auto;
+      font-size: 18px;
+      font-style: italic;
+      color: #3e3e3e;
+      display: none;
+    }
+    #initialGif, #finalGif {
+      width: 200px;
+      margin-top: 30px;
+      border-radius: 15px;
+    }
+    #finalGif {
+      display: none;
+    }
+    .heart {
+      position: fixed;
+      bottom: 0;
+      font-size: 24px;
+      color: #ff3366;
+      animation-name: floatUp;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      opacity: 0.8;
+      user-select: none;
+      pointer-events: none;
+      z-index: 5;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.3);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Yâr ile vuslat mümkün müdür yine?</h1>
+
+  <div id="buttons">
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
+  </div>
+
+  <img id="initialGif" src="https://media.giphy.com/media/Y4z9olnoVl5QI/giphy.gif" alt="Kalp" />
+  <img id="finalGif" src="https://media.giphy.com/media/1eEMmEZzaZaxoay0zk/giphy.gif" alt="Aşk" />
+
+  <div id="message">
+    <p>Ben ki aşkına düçâr olmuş bir seyyahım, kalbim çöl olsa da.</p>
+    <p>Her kelamın bana bir damla rahmet gibi gelir.</p>
+    <p>Hatıran geçince ruhum serinler, ellerini tutamasam da, hayalin avuçlarımda dua olur.</p>
+    <p>Gece bastığında, hayalin yıldız yıldız düşer yüreğime.</p>
+    <p>Ey aşkın en güzel tanımı, susmak bazen anlatmaktan daha derin olsa da, bu yangını içimde tutamam artık.</p>
+    <p>Gözlerim seni arar, kalbim sana sığınır.</p>
+    <p>Gel, gönüllerimizi yeniden birleştirelim, çünkü bu gönül seni hep bir sır gibi saklar.</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const message = document.getElementById('message');
+    const initialGif = document.getElementById('initialGif');
+    const finalGif = document.getElementById('finalGif');
+    const buttons = document.getElementById('buttons');
+
+    noBtn.addEventListener('mouseover', () => {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const x = Math.random() * maxX + padding;
+      const y = Math.random() * maxY + padding;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    yesBtn.addEventListener('click', () => {
+      buttons.style.display = 'none';
+      initialGif.style.display = 'none';
+
+      finalGif.style.display = 'inline-block';
+      message.style.display = 'block';
+
+      startHearts();
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    function startHearts() {
+      setInterval(createHeart, 500);
+    }
+  </script>
+</body>
+</html>
